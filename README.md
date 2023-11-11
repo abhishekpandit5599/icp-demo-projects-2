@@ -3,8 +3,10 @@
 # Ball Game
 
 
-index.html
-```
+`index.html`
+
+```js
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,32 +22,24 @@ index.html
     <p id="score"></p>
     <p id="playername"></p>
       <canvas id="canvas"></canvas>
-
-     
-
-
   </body>
 </html>
 ```
 
-index.js
-```
+`index.js`
+
+```js
+
 import { buildBlocks_backend } from "../../declarations/buildBlocks_backend";
 
 var a = prompt("Enter your name!");
 
-
-
 var b = document.getElementById('playername');
 b.textContent = await buildBlocks_backend.enterName(a);
-
-
 
 var map = {
 
   tile_size: 16,
-
-
 
   keys: [
     { id: 0, colour: '#333', solid: 0 },
@@ -62,7 +56,6 @@ var map = {
     { id: 11, colour: '#0FF', solid: 0, script: 'unlock' }
   ],
 
-  /* An array representing the map tiles. Each number corresponds to a key */
   data: [
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
     [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
@@ -127,21 +120,15 @@ var map = {
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
   ],
 
-  /* Default gravity of the map */
-
   gravity: {
     x: 0,
     y: 0.3
   },
 
-  /* Velocity limits */
-
   vel_limit: {
     x: 2,
     y: 16
   },
-
-  /* Movement speed when the key is pressed */
 
   movement_speed: {
     jump: 6,
@@ -149,7 +136,6 @@ var map = {
     right: 0.3
   },
 
-  /* The coordinates at which the player spawns and the colour of the player */
 
   player: {
     x: 2,
@@ -157,19 +143,13 @@ var map = {
     colour: '#FF9900'
   },
 
-  /* scripts refered to by the "script" variable in the tile keys */
-
   scripts: {
-    /* you can just use "this" instead of your engine variable ("game"), but Codepen doesn't like it */
     change_colour: 'game.player.colour = "#"+(Math.random()*0xFFFFFF<<0).toString(16);',
-    /* you could load a new map variable here */
     next_level: 'alert("Yay! You won! Reloading map.");game.load_map(map);',
     death: 'alert("You died!");game.load_map(map);',
     unlock: 'game.current_map.keys[10].solid = 0;game.current_map.keys[10].colour = "#888";'
   }
 };
-
-/* Clarity engine */
 
 var Clarity = function () {
 
@@ -656,10 +636,10 @@ Loop();
 
 ```
 
-main.css
+`main.css`
 
+```js
 
-```
 * {
   margin: 0;
   padding: 0;
@@ -709,8 +689,9 @@ a {
 }
 ```
 
-main.mo
-```
+`main.mo`
+
+```js
 actor {
   public func enterName(name : Text) : async Text {
     let namee : Text = name;
@@ -721,11 +702,12 @@ actor {
 
 ```
 
-# Certification system 
+# Certification system in REACT
 
-main.mo
+`main.mo`
 
-```
+```js
+
 import HashMap "mo:base/HashMap";
 import Principal "mo:base/Principal";
 import List "mo:base/List";
@@ -842,9 +824,10 @@ actor certification {
 };
 ```
 
-index.jsx
+`index.jsx`
 
-```
+```js
+
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
@@ -852,9 +835,10 @@ import App from "./components/App";
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-App.jsx
+`App.jsx`
+`
+```js
 
-```
 import React from 'react';
 import CertificateApp from './CertificateApp';
 
@@ -870,9 +854,10 @@ function App() {
 export default App;
 ```
 
-CertificateApp.jsx
+`CertificateApp.jsx`
+`
+```js 
 
-```
 import React, { useState } from 'react';
 import './CertificateApp.css'; // Import your CSS file
 import TextDisplay from './TextDisplay'; // Make sure to provide the correct path
@@ -927,9 +912,10 @@ function CertificateApp() {
 export default CertificateApp;
 ```
 
-TextDisplay.jsx
+`TextDisplay.jsx`
 
-```
+```js
+
 import React, { useState } from 'react';
 import { certiSys_backend } from '../../../declarations/certiSys_backend';
 import {Principal} from '@dfinity/principal'
@@ -976,4 +962,1136 @@ export default TextDisplay;
 
 ```
 
+## FLAPPY BIRD GAME 
 
+`main.mo`
+
+```js
+actor {
+  type BoxInputData = {
+    box0 : Text;
+    box1 : Text;
+    box2 : Text;
+  };
+
+  public query func changeTurn(turn : Text) : async Text {
+    var result : Text = "";
+    if (turn == "X") {
+      result := "0";
+    } else {
+      result := "X";
+    };
+    return result;
+  };
+
+  public func checkWin(data : BoxInputData) : async Bool {
+    if ((data.box0 == data.box1) and (data.box2 == data.box1) and (data.box0 != "")) {
+      return true;
+    };
+    return false;
+  };
+};
+```
+
+`index.html`
+
+```js
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body onload="startGame()">
+    <h1>Flappy Bird Game</h1>
+    <script>
+      var myGamePiece;
+      var myObstacles = [];
+      var myScore;
+      function startGame() {
+        myGamePiece = new component(30, 30, "red", 10, 120);
+        myGamePiece.gravity = 0.05;
+        myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+        myGameArea.start();
+      }
+
+      var myGameArea = {
+        canvas: document.createElement("canvas"),
+        start: function () {
+          this.canvas.width = 480;
+          this.canvas.height = 270;
+          this.context = this.canvas.getContext("2d");
+          document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+          this.frameNo = 0;
+          this.interval = setInterval(updateGameArea, 20);
+        },
+        clear: function () {
+          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        },
+      };
+
+      function component(width, height, color, x, y, type) {
+        this.type = type;
+        this.score = 0;
+        this.width = width;
+        this.height = height;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.x = x;
+        this.y = y;
+        this.gravity = 0;
+        this.gravitySpeed = 0;
+        this.update = function () {
+          ctx = myGameArea.context;
+          if (this.type == "text") {
+            ctx.font = this.width + " " + this.height;
+            ctx.fillStyle = color;
+            ctx.fillText(this.text, this.x, this.y);
+          } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+          }
+        };
+        this.newPos = function () {
+          this.gravitySpeed += this.gravity;
+          this.x += this.speedX;
+          this.y += this.speedY + this.gravitySpeed;
+          this.hitBottom();
+        };
+        this.hitBottom = function () {
+          var rockbottom = myGameArea.canvas.height - this.height;
+          if (this.y > rockbottom) {
+            this.y = rockbottom;
+            this.gravitySpeed = 0;
+          }
+        };
+        this.crashWith = function (otherobj) {
+          var myleft = this.x;
+          var myright = this.x + this.width;
+          var mytop = this.y;
+          var mybottom = this.y + this.height;
+          var otherleft = otherobj.x;
+          var otherright = otherobj.x + otherobj.width;
+          var othertop = otherobj.y;
+          var otherbottom = otherobj.y + otherobj.height;
+          var crash = true;
+          if (
+            mybottom < othertop ||
+            mytop > otherbottom ||
+            myright < otherleft ||
+            myleft > otherright
+          ) {
+            crash = false;
+          }
+          return crash;
+        };
+      }
+
+      function updateGameArea() {
+        var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+        for (i = 0; i < myObstacles.length; i += 1) {
+          if (myGamePiece.crashWith(myObstacles[i])) {
+            return;
+          }
+        }
+        myGameArea.clear();
+        myGameArea.frameNo += 1;
+        if (myGameArea.frameNo == 1 || everyinterval(150)) {
+          x = myGameArea.canvas.width;
+          minHeight = 20;
+          maxHeight = 200;
+          height = Math.floor(
+            Math.random() * (maxHeight - minHeight + 1) + minHeight
+          );
+          minGap = 50;
+          maxGap = 200;
+          gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+          myObstacles.push(new component(10, height, "green", x, 0));
+          myObstacles.push(
+            new component(10, x - height - gap, "green", x, height + gap)
+          );
+        }
+        for (i = 0; i < myObstacles.length; i += 1) {
+          myObstacles[i].x += -1;
+          myObstacles[i].update();
+        }
+        myScore.text = "SCORE: " + myGameArea.frameNo;
+        myScore.update();
+        myGamePiece.newPos();
+        myGamePiece.update();
+      }
+
+      function everyinterval(n) {
+        if ((myGameArea.frameNo / n) % 1 == 0) {
+          return true;
+        }
+        return false;
+      }
+
+      function accelerate(n) {
+        myGamePiece.gravity = n;
+      }
+    </script>
+    <br />
+    <button onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">
+      ACCELERATE
+    </button>
+    <p>Use the ACCELERATE button to stay in the air</p>
+    <p>How long can you stay alive?</p>
+  </body>
+</html>
+
+```
+
+`main.css`
+
+```js
+canvas {
+  border: 1px solid #d3d3d3;
+  background-color: #f1f1f1;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+h1 {
+  font-size: 36px;
+}
+button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #45a049;
+}
+p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+```
+
+
+## MEMORY CARD GAME
+
+`main.mo`
+
+```js
+actor {
+  type BoxInputData = {
+    box0 : Text;
+    box1 : Text;
+    box2 : Text;
+  };
+
+  public query func changeTurn(turn : Text) : async Text {
+    var result : Text = "";
+    if (turn == "X") {
+      result := "0";
+    } else {
+      result := "X";
+    };
+    return result;
+  };
+
+  public func checkWin(data : BoxInputData) : async Bool {
+    if ((data.box0 == data.box1) and (data.box2 == data.box1) and (data.box0 != "")) {
+      return true;
+    };
+    return false;
+  };
+};
+```
+`index.html`
+
+```js
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">  
+    <title>Memory Card Game in JavaScript | CodingNepal</title>
+    <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Memory Card Game</h1>
+      <ul class="cards">
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-1.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-6.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-3.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-2.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-1.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-5.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-2.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-6.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-3.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-4.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-5.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-4.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-4.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-4.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-4.png" alt="card-img">
+          </div>
+        </li>
+        <li class="card">
+          <div class="view front-view">
+            <img src="images/que_icon.svg" alt="icon">
+          </div>
+          <div class="view back-view">
+            <img src="images/img-4.png" alt="card-img">
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <script src="index.js"></script>
+
+  </body>
+</html>
+```
+`index.js`
+
+```js
+const cards = document.querySelectorAll(".card");
+
+let matched = 0;
+let cardOne, cardTwo;
+let disableDeck = false;
+
+function flipCard({target: clickedCard}) {
+    if(cardOne !== clickedCard && !disableDeck) {
+        clickedCard.classList.add("flip");
+        if(!cardOne) {
+            return cardOne = clickedCard;
+        }
+        cardTwo = clickedCard;
+        disableDeck = true;
+        let cardOneImg = cardOne.querySelector(".back-view img").src,
+        cardTwoImg = cardTwo.querySelector(".back-view img").src;
+        matchCards(cardOneImg, cardTwoImg);
+    }
+}
+
+function matchCards(img1, img2) {
+    if(img1 === img2) {
+        matched++;
+        if(matched == 8) {
+            setTimeout(() => {
+                return shuffleCard();
+            }, 1000);
+        }
+        cardOne.removeEventListener("click", flipCard);
+        cardTwo.removeEventListener("click", flipCard);
+        cardOne = cardTwo = "";
+        return disableDeck = false;
+    }
+    setTimeout(() => {
+        cardOne.classList.add("shake");
+        cardTwo.classList.add("shake");
+    }, 400);
+
+    setTimeout(() => {
+        cardOne.classList.remove("shake", "flip");
+        cardTwo.classList.remove("shake", "flip");
+        cardOne = cardTwo = "";
+        disableDeck = false;
+    }, 1200);
+}
+
+function shuffleCard() {
+    matched = 0;
+    disableDeck = false;
+    cardOne = cardTwo = "";
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+    arr.sort(() => Math.random() > 0.5 ? 1 : -1);
+    cards.forEach((card, i) => {
+        card.classList.remove("flip");
+        let imgTag = card.querySelector(".back-view img");
+        imgTag.src = `images/img-${arr[i]}.png`;
+        card.addEventListener("click", flipCard);
+    });
+}
+
+shuffleCard();
+    
+cards.forEach(card => {
+    card.addEventListener("click", flipCard);
+});
+```
+
+`main.css`
+
+```js
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #6563FF;
+}
+.wrapper{
+  padding: 25px;
+  border-radius: 10px;
+  background: #F8F8F8;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.cards, .card, .view{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cards{
+  height: 400px;
+  width: 400px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.cards .card{
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  height: calc(100% / 4 - 10px);
+  width: calc(100% / 4 - 10px);
+}
+.card.shake{
+  animation: shake 0.35s ease-in-out;
+}
+@keyframes shake {
+  0%, 100%{
+    transform: translateX(0);
+  }
+  20%{
+    transform: translateX(-13px);
+  }
+  40%{
+    transform: translateX(13px);
+  }
+  60%{
+    transform: translateX(-8px);
+  }
+  80%{
+    transform: translateX(8px);
+  }
+}
+.card .view{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 7px;
+  background: #fff;
+  pointer-events: none;
+  backface-visibility: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.25s linear;
+}
+.card .front-view img{
+  width: 19px;
+}
+.card .back-view img{
+  max-width: 45px;
+}
+.card .back-view{
+  transform: rotateY(-180deg);
+}
+.card.flip .back-view{
+  transform: rotateY(0);
+}
+.card.flip .front-view{
+  transform: rotateY(180deg);
+}
+
+@media screen and (max-width: 700px) {
+  .cards{
+    height: 350px;
+    width: 350px;
+  }
+  .card .front-view img{
+    width: 17px;
+  }
+  .card .back-view img{
+    max-width: 40px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .cards{
+    height: 300px;
+    width: 300px;
+  }
+  .card .front-view img{
+    width: 15px;
+  }
+  .card .back-view img{
+    max-width: 35px;
+  }
+}
+```
+`image folder`
+
+```js
+// in this game we have one folder of images which you have to add in assets , 
+
+// just download image folder from memory_card_game_image folder and place it inside assets
+```
+
+## Mobile-Calcy in REACT
+
+`main.mo`
+
+```js
+import Float "mo:base/Float";
+actor Calculator {
+
+  var num : Float = 0;
+
+  public func add(val1 : Float, val2 : Float) : async Float {
+    num := val1 +val2;
+    return num;
+  };
+
+  public func subtract(val1 : Float, val2 : Float) : async Float {
+    num := val1 -val2;
+    return num;
+  };
+
+  public func multiply(val1 : Float, val2 : Float) : async Float {
+    num := val1 * val2;
+    return num;
+  };
+
+  public func divison(val1 : Float, val2 : Float) : async ?Float {
+    if (val2 == 0) {
+      return null;
+    } else {
+      num := val1 / val2;
+      return ?num;
+    };
+  };
+
+  public func clearAll() : async Float {
+    num := 0;
+    return num;
+  };
+
+};
+```
+
+`App.jsx`
+
+```js
+import React, { useState } from "react";
+import { calcy_backend } from "../../../declarations/calcy_backend";
+
+function App() {
+  const [curr, setCurr] = useState("");
+  const [prev, setPrev] = useState("");
+  const [operand, setOperand] = useState("");
+
+  const numHandler = (e) => {
+    if (curr.includes(".") && e.target.value === ".") return;
+    curr ? setCurr((prev) => prev + e.target.value) : setCurr(e.target.value);
+  };
+
+  const clearHandler = async () => {
+    await calcy_backend.clearAll();
+    setCurr("");
+    setPrev("");
+    setOperand("");
+  };
+  const clearLastHandler = () => {
+    if (operand) return;
+    let res = curr.slice(0, -1);
+    setCurr(res);
+  };
+
+  const operandHandler = (e) => {
+    setOperand(e.target.value);
+    if (curr === "") return;
+    if (prev !== "") calculate();
+    else {
+      setPrev(curr);
+      setCurr("");
+    }
+  };
+  const calculate = async () => {
+    let cal, val1, val2;
+    switch (operand) {
+      case "+":
+        val1 = Number(prev);
+        val2 = Number(curr);
+        cal = String(await calcy_backend.add(val1, val2));
+        break;
+
+      case "-":
+        val1 = Number(prev);
+        val2 = Number(curr);
+        cal = String(await calcy_backend.subtract(val1, val2));
+        break;
+
+      case "*":
+        val1 = Number(prev);
+        val2 = Number(curr);
+        cal = String(await calcy_backend.multiply(val1, val2));
+        break;
+
+      case "/":
+        val1 = Number(prev);
+        val2 = Number(curr);
+        cal = String(await calcy_backend.divison(val1, val2));
+        break;
+      default:
+        return;
+    }
+    console.log("cal", cal);
+
+    setPrev(cal);
+    setCurr("");
+  };
+
+  let numArray = [];
+  for (let i = 0; i <= 9; i++) {
+    numArray.push(i);
+  }
+  numArray.push(".");
+
+  const operandsss = ["+", "-", "*", "/"];
+
+  return (
+    <div className="App">
+      <h1>calculator</h1>
+      <div className="screen">
+        <span>{prev}</span>
+        <span>{operand}</span>
+        <span>{curr}</span>
+      </div>
+      {operandsss.map((opr, index) => (
+        <button
+          key={index}
+          value={opr}
+          className="button opr"
+          onClick={operandHandler}
+        >
+          {opr}
+        </button>
+      ))}
+      {numArray.map((num, index) => (
+        <button key={index} value={num} className="button" onClick={numHandler}>
+          {num}
+        </button>
+      ))}
+      <input
+        type="button"
+        value="X"
+        className="button btn2"
+        onClick={clearLastHandler}
+      />
+      <input
+        type="button"
+        value="AC"
+        className="button btn"
+        onClick={clearHandler}
+      />
+      <input
+        type="button"
+        value="="
+        className="button button1"
+        onClick={calculate}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+`main.css`
+
+```js
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App {
+  width: 390px;
+  margin: 100px auto;
+  align-items: center;
+}
+
+.screen {
+  width: 300px;
+  height: 80px;
+  text-align: right;
+  border: 3px solid rgb(88, 87, 87);
+  font-size: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.button {
+  width: 80px;
+  height: 80px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  font-size: 25px;
+}
+
+body {
+  background-color: lightgray;
+}
+
+.btn {
+  width: 160px;
+  background-color: white;
+  color: black;
+}
+
+.opr {
+  background-color: rgb(158, 55, 7);
+}
+
+.btn2 {
+  background-color: rgb(65, 63, 63);
+}
+
+.button1 {
+  width: 160px;
+  background-color: yellowgreen;
+}
+```
+
+`package.json`
+
+```js
+// change your depedencies with this in package.json
+
+"dependencies": {
+    "@dfinity/agent": "^0.19.3",
+    "@dfinity/candid": "^0.19.3",
+    "@dfinity/principal": "^0.19.3",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.14.14",
+    "@mui/material": "^5.14.14",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-loader": "^9.5.0"
+  },
+```
+## todo list without login 
+
+`main.mo`
+
+```js
+import Text "mo:base/Text";
+import List "mo:base/List";
+import Debug "mo:base/Debug";
+import Nat "mo:base/Nat";
+
+actor {
+
+  public type Note = {
+    textarea : Text;
+    id : Nat;
+  };
+
+  var notes : List.List<Note> = List.nil<Note>();
+
+  public func addTodo(title : Text) : async Nat {
+    let todoId = List.size(notes) +1;
+
+    let newNote : Note = {
+      id = todoId;
+      textarea = title;
+    };
+
+    notes := List.push(newNote, notes);
+    Debug.print(debug_show (notes));
+
+    return newNote.id;
+  };
+
+  public query func getAllTodo() : async [Note] {
+    return List.toArray(notes);
+
+  };
+
+  public func deleteTodo(id : Nat) {
+    Debug.print(debug_show (id));
+
+    notes := List.filter(
+      notes,
+      func(note : Note) : Bool {
+        return note.id != id;
+      },
+    );
+
+    Debug.print("id is deleted");
+  };
+
+};
+
+```
+
+`index.html`
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>ToDo List</title>
+  </head>
+  <body>
+    <div class="container-title">
+      <h1>TO DO LIST</h1>
+    </div>
+    <div class="container">
+      <form class="inputcol">
+        <textarea
+          class="textarea"
+          type="text"
+          name="textarea"
+          placeholder="Add todo"
+          required
+        ></textarea>
+        <button class="buttoninput" type="submit">
+          <i class="fa-solid fa-check"></i>
+        </button>
+      </form>
+    </div>
+    <ul id="todolist"></ul>
+    <script src="index.js"></script>
+  </body>
+</html>
+
+```
+
+`index.js`
+
+```js
+import { todo_backend } from "../../declarations/todo_backend";
+
+const textarea = document.querySelector(".textarea");
+const appointForm = document.querySelector(".inputcol");
+
+appointForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const obj = {
+    textarea: textarea.value,
+  };
+
+  try {
+    const getId = await todo_backend.addTodo(obj.textarea);
+    showUserOnScreen({ id: getId, textarea: obj.textarea });
+    textarea.value = ""; 
+  } catch (error) {
+    console.error("Error adding todo:", error);
+  }
+});
+
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const getAll = await todo_backend.getAllTodo();
+    getAll.forEach((todo) => showUserOnScreen(todo));
+  } catch (error) {
+    console.error("Error fetching todo list:", error);
+  }
+});
+
+function showUserOnScreen(user) {
+  const parentNode = document.getElementById("todolist");
+
+  const newListItem = document.createElement("li");
+  newListItem.className = "item";
+  newListItem.id = Number(user.id);
+  newListItem.textContent = user.textarea;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "trash-button";
+  deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+  deleteButton.onclick = () => deleteTodo(user.id);
+
+  newListItem.appendChild(deleteButton);
+  parentNode.appendChild(newListItem);
+}
+
+async function deleteTodo(userId) {
+  try {
+    console.log("userId in del =>", userId);
+    await todo_backend.deleteTodo(userId);
+    removeUserFromScreen(userId);
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+  }
+}
+
+function removeUserFromScreen(userId) {
+  const childNodeToBeDeleted = document.getElementById(userId);
+  if (childNodeToBeDeleted) {
+    childNodeToBeDeleted.parentNode.removeChild(childNodeToBeDeleted);
+  }
+}
+
+```
+`main.css`
+
+```js
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
+}
+
+body {
+  background-image: linear-gradient(to right, #605e7e, #6b73c1, #37b3cc);
+  margin: 50px 2%;
+}
+
+.container-title {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+  text-shadow: 3px 1px black;
+}
+
+.inputcol {
+  display: grid;
+  column-gap: 5px;
+  grid-template-columns: 60% 10%;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.textarea {
+  min-height: 50px;
+  max-width: 100%;
+  border-radius: 10px;
+  border-color: #333;
+  font-size: 20px;
+  padding: 10px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.textarea::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #333;
+}
+
+.textarea::-webkit-scrollbar {
+  width: 10px;
+  cursor: pointer;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #8f8acc;
+}
+
+.textarea:focus {
+  outline: none;
+}
+
+.buttoninput {
+  border-radius: 10px;
+  border-color: #333;
+  background-color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttoninput:hover {
+  background-color: #8f8acc;
+  color: white;
+}
+
+#todolist .item {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  word-wrap: break-word;
+  word-break: break-all;
+  font-size: 20px;
+}
+
+.trash-button {
+  background-color: transparent;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.trash-button:hover {
+  background-color: #6b73c1;
+  color: white;
+  transform: scale(1.05);
+}
+
+.trash-button:active {
+  transform: scale(0.95);
+}
+
+.fa-check,
+.fa-trash {
+  pointer-events: none;
+}
+
+```
