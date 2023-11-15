@@ -962,6 +962,49 @@ export default TextDisplay;
 
 ```
 
+`package.json`
+
+```js
+// inside package.json update depedencies
+
+"dependencies": {
+    "@dfinity/agent": "^0.19.3",
+    "@dfinity/candid": "^0.19.3",
+    "@dfinity/principal": "^0.19.3",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.14.14",
+    "@mui/material": "^5.14.14",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-loader": "^9.5.0"
+  }
+```
+`index.html`
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Document</title>
+    <base href="/" />
+    <link rel="icon" href="favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="main.css" />
+  	<link id="external-css" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap" media="all">
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+
+```
+
 ## FLAPPY BIRD GAME 
 
 `main.mo`
@@ -1554,7 +1597,8 @@ body{
 ```js
 // in this game we have one folder of images which you have to add in assets , 
 
-// just download image folder from memory_card_game_image folder and place it inside assets
+// just download image folder from assets and place it inside your project assets
+
 ```
 
 ## Mobile-Calcy in REACT
@@ -1597,6 +1641,38 @@ actor Calculator {
   };
 
 };
+```
+
+`index.html`
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>calcy</title>
+    <base href="/" />
+    <link rel="icon" href="favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="main.css" />
+  	<link id="external-css" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap" media="all">
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+
+```
+
+`index.jsx`
+
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./Components/App";
+
+ReactDOM.render(<App />, document.getElementById("root"))
+
 ```
 
 `App.jsx`
